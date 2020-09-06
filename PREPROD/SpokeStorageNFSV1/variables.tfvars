@@ -10,7 +10,6 @@ current-name-convention-core-public-hub-main = "__current-name-convention-core-p
 current-name-convention-core-public-network-main = "__current-name-convention-core-public-network-main__"
 
 spoke-storage-root-name = "__spoke-storage-root-name__"
-current-name-convention-core-network-main = "__current-name-convention-core-network-main__"
 
 
 current-vm-default-pass-main = "__current-vm-default-pass-main__"
