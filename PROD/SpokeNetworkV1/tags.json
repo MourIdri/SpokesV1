@@ -1,0 +1,13 @@
+{
+    "environnement" : [ "production" , "preproduction" , "devtest" , "sandbox"] ,
+    "scope_1" : ["shared_infrastructure" , "dedicated_infrastructure" , "application"] ,
+    "scope_2" : ["core_infrastructure" , "backends_infrastructure","hub","spoke_production", "production"],
+    "type_1" : ["network_security" , "domain_identity" , "corp_apps" , "business_apps" , "support_apps" , "storage" , "database"] ,
+    "type_2" : ["vpn" , "ad_dc_dns" , "jumphost" , "router" , "waf" , "nexcloud" , "magento" , "wordpress" , "custom_python" , "file_storage_cifs" , "object_storage" , "MySQL_DB", "blob","webapp"],
+    "lob" : ["it_infrastructure" , "digital" , "marketing" , "logistique" ] ,
+    "business_location" : ["corph","corpc","branch_asia_hk","branch_usa_dtr"],
+    "projectowner" : ["it_security" , "db_admin" , "storage_admin"] ,
+    "name" : ["dc","client10","rtrlnx","web","www","nextcloud","marketplace","optifret","cifsserver","s3","mysql"] ,
+    "time" : [ "h24d5","h12d5","h6d5"]
+}
+
