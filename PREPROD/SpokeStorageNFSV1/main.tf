@@ -21,17 +21,17 @@ module "rg" {
  #data "azurerm_virtual_network" "workload_vnet" {
   #provider = azurerm.subscription1
   #name = "cc-pp-hb-vnet"
-  #name = "${var.current-name-convention-core-network-module}-vnet"
+  #name = "${var.current-name-convention-core-network-main}-vnet"
   #resource_group_name = "cc-pp-hb-rg"
-  #resource_group_name = "${var.current-name-convention-core-network-module}-rg"
+  #resource_group_name = "${var.current-name-convention-core-network-main}-rg"
 #}
 
 data "azurerm_subnet" "subnet-spoke-storage" {
-  name                = "${var.current-name-convention-core-network-module}-subnet-${var.spoke-storage-root-name}"
+  name                = "${var.current-name-convention-core-network-main}-subnet-${var.spoke-storage-root-name}"
   #name                = "cc-pp-nt-subnet-sp1-sto"
-  virtual_network_name = "${var.current-name-convention-core-network-module}-vnet"
+  virtual_network_name = "${var.current-name-convention-core-network-main}-vnet"
   #virtual_network_name = "cc-pp-nt-vnet"
-  resource_group_name = "${var.current-name-convention-core-network-module}-rg"
+  resource_group_name = "${var.current-name-convention-core-network-main}-rg"
   #resource_group_name  = "cc-pp-nt-rg"
   #id = "/subscriptions/08fe2f9a-df6d-4cff-871f-062e3f16b4a2/resourceGroups/cc-pp-nt-rg/providers/Microsoft.Network/virtualNetworks/cc-pp-nt-vnet/subnets/cc-pp-nt-subnet-sp1-sto"
 }
