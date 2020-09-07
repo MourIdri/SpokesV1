@@ -39,7 +39,7 @@ module "logging" {
   logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
 }
 
-#CI Validated so far 
+#CI Validated so far test
 module "vm-nfs-sto-1" {
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
