@@ -19,8 +19,8 @@ output "current_object_id" {
 #}
 
 resource "azurerm_resource_group" "resource_group_spoke" {
-  name                     = "${var.current-name-convention-core-module}-rg"
-  location                 = "${var.preferred-location-module}"
+  name                     = "${var.current-name-convention-core-main}-rg"
+  location                 = "${var.preferred-location-main}"
 }
 
 
