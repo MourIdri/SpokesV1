@@ -57,7 +57,6 @@ module "vm-nfs-sto-1" {
   preferred-location-module = "${var.preferred-location-main}"  
   source               = "./modules/vm-lnx-pri"
   subnet_in_id_module = data.azurerm_subnet.subnet-spoke-storage.id
-  #ip-in-mtl-module = "10.255.255.21"
   ip-in-mtl-module = "${var.vm-nfs-sto-1-private-ip-address}" 
   mtl-size ="${var.vmsize_small_1_2}"
   mtl-login = "${var.current-vm-default-username-main}"
@@ -67,5 +66,5 @@ module "vm-nfs-sto-1" {
   stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
   stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
   stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
-  mtl_depend_on = [module.logging ]
+  mtl_depend_on = [module.rg, module.logging ]
 }
