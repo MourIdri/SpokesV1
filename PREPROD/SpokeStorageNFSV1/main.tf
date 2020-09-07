@@ -12,11 +12,6 @@ output "current_object_id" {
   value = data.azurerm_client_config.current.object_id
 }
 
-#module "rg" {
-#  source               = "./modules/rg"
-#  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
-#  preferred-location-module = "${var.preferred-location-main}"
-#}
 
 resource "azurerm_resource_group" "resource_group_spoke" {
   name                     = "${var.current-name-convention-core-main}-rg"
