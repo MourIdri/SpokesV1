@@ -29,7 +29,7 @@ variable "current-name-convention-core-public-network-main" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "
   type = any
 }
-variable "current-name-convention-core-network-module" {
+variable "current-name-convention-core-network-main" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "
   type = any
 }
