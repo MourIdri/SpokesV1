@@ -40,6 +40,7 @@ module "logging" {
 }
 
 #CI Validated so far test
+#CI Validated so far test
 module "vm-nfs-sto-1" {
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
