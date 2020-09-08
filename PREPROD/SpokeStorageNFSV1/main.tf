@@ -33,6 +33,15 @@ module "logging" {
   logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
 }
 
+
+resource "azurerm_storage_account" "mots1" {
+  name                     = "${var.current-name-convention-core-public-main}mots1"
+  resource_group_name      = azurerm_resource_group.resource_group_spoke.name
+  location                 = azurerm_resource_group.resource_group_spoke.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
 #dat#a "azurerm_subnet" "subnet-spoke-storage" {
 #  n#ame                = "${var.current-name-convention-core-network-main}-subnet-${var.spoke-storage-root-name}"
 #  v#irtual_network_name = "${var.current-name-convention-core-network-main}-vnet"
