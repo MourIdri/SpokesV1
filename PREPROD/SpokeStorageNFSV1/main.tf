@@ -34,8 +34,8 @@ resource "azurerm_resource_group" "resource_group_spoke" {
 #}
 
 
-resource "azurerm_storage_account" "mots1" {
-  name                     = "${var.current-name-convention-core-public-main}mots1"
+resource "azurerm_storage_account" "mots2" {
+  name                     = "${var.current-name-convention-core-public-main}mots2"
   resource_group_name      = azurerm_resource_group.resource_group_spoke.name
   location                 = azurerm_resource_group.resource_group_spoke.location
   account_tier             = "Standard"
