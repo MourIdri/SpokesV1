@@ -20,18 +20,18 @@ resource "azurerm_resource_group" "resource_group_spoke" {
 
 
 #CI Validated so far 
-module "logging" {
-  source               = "./modules/logging"
-  current-vm-default-pass-module = "${var.current-vm-default-pass-main}"
-  current-vm-default-username-module = "${var.current-vm-default-username-main}"
-  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
-  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
-  preferred-location-module = "${var.preferred-location-main}"
-  current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
-  current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
-  stoc_depend_on_module = [azurerm_resource_group.resource_group_spoke ]
-  logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
-}
+#module "logging" {
+#  source               = "./modules/logging"
+#  current-vm-default-pass-module = "${var.current-vm-default-pass-main}"
+#  current-vm-default-username-module = "${var.current-vm-default-username-main}"
+#  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+#  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+#  preferred-location-module = "${var.preferred-location-main}"
+#  current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
+#  current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
+#  stoc_depend_on_module = [azurerm_resource_group.resource_group_spoke ]
+#  logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
+#}
 
 
 resource "azurerm_storage_account" "mots1" {
