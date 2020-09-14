@@ -1,4 +1,5 @@
 data "azurerm_client_config" "current" {}
+
 output "current_client_id" {
   value = data.azurerm_client_config.current.client_id
 }
@@ -13,9 +14,17 @@ output "current_object_id" {
 }
 
 
-resource "azurerm_resource_group" "resource_group_spoke" {
+resource "azurerm_resource_group" "resource_group_spoke_storage" {
   name                     = "${var.current-name-convention-core-main}-rg"
   location                 = "${var.preferred-location-main}"
+}
+
+resource "azurerm_storage_account" "mots2" {
+  name                     = "${var.current-name-convention-core-public-main}mots2"
+  resource_group_name      = azurerm_resource_group.resource_group_spoke_storage.name
+  location                 = azurerm_resource_group.resource_group_spoke_storage.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
 
@@ -34,13 +43,6 @@ resource "azurerm_resource_group" "resource_group_spoke" {
 #}
 
 
-resource "azurerm_storage_account" "mots2" {
-  name                     = "${var.current-name-convention-core-public-main}mots2"
-  resource_group_name      = azurerm_resource_group.resource_group_spoke.name
-  location                 = azurerm_resource_group.resource_group_spoke.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
 
 #dat#a "azurerm_subnet" "subnet-spoke-storage" {
 #  n#ame                = "${var.current-name-convention-core-network-main}-subnet-${var.spoke-storage-root-name}"
