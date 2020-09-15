@@ -33,6 +33,10 @@ variable "current-name-convention-core-network-main" {
   description = "Every ressources has a core model crpc-prod-shar-hub-subnet-publicdmzin "
   type = any
 }
+variable "tf_storage_account_key" {
+  description = "__tf_storage_account_key__ "
+  type = any
+}
 
 
 
