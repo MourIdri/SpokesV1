@@ -14,10 +14,17 @@ output "current_object_id" {
 }
 
 
-resource "azurerm_resource_group" "resource_group_spoke_storage" {
-  name                     = "${var.current-name-convention-core-main}-rg"
-  location                 = "${var.preferred-location-main}"
+#resource "azurerm_resource_group" "resource_group_spoke_storage" {
+#  name                     = "${var.current-name-convention-core-main}-rg"
+#  location                 = "${var.preferred-location-main}"
+#}
+
+module "rg-st" {
+  source               = "./modules/rg"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"
 }
+
 
 resource "azurerm_storage_account" "mots2" {
   name                     = "${var.current-name-convention-core-public-main}mots2"
@@ -45,8 +52,8 @@ module "logging" {
   preferred-location-module = "${var.preferred-location-main}"
   current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
   current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
-  stoc_depend_on_module = [azurerm_resource_group.resource_group_spoke ]
-  logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
+  stoc_depend_on_module = [module.rgst]
+  logacc_depend_on_module = [module.rgst]
 }
 
 
