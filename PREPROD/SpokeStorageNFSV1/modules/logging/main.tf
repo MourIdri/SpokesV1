@@ -98,7 +98,7 @@ resource "azurerm_log_analytics_workspace" "hub-corpc-log-ana-rep" {
 #}
 
 #Create a security view with log anaitics
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecu" {
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-Security" {
   solution_name         = "Security"
   location              = "${var.preferred-location-module}"
   resource_group_name   = "${var.current-name-convention-core-module}-rg"
@@ -111,7 +111,7 @@ resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecu" {
     product   = "OMSGallery/Security"
   }
 }    
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecufree" {
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-SecurityCenterFree" {
   solution_name         = "SecurityCenterFree"
   location              = "${var.preferred-location-module}"
   resource_group_name   = "${var.current-name-convention-core-module}-rg"
@@ -124,7 +124,7 @@ resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecufree" {
     product   = "OMSGallery/SecurityCenterFree"
   }
 }  
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solUpdates" {
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-Updates" {
   solution_name         = "Updates"
   location              = "${var.preferred-location-module}"
   resource_group_name   = "${var.current-name-convention-core-module}-rg"
@@ -137,20 +137,8 @@ resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solUpdates" {
     product   = "OMSGallery/Updates"
   }
 } 
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solServiceMap" {
-  solution_name         = "ServiceMap"
-  location              = "${var.preferred-location-module}"
-  resource_group_name   = "${var.current-name-convention-core-module}-rg"
-  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
-  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
-  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
-  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/ServiceMap"
-  }
-}
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solContainerInsights" {
+
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-ContainerInsights" {
   solution_name         = "ContainerInsights"
   location              = "${var.preferred-location-module}"
   resource_group_name   = "${var.current-name-convention-core-module}-rg"
@@ -163,7 +151,7 @@ resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solContainerInsight
     product   = "OMSGallery/ContainerInsights"
   }
 }
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solServiceMap" {
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-ServiceMap" {
   solution_name         = "ServiceMap"
   location              = "${var.preferred-location-module}"
   resource_group_name   = "${var.current-name-convention-core-module}-rg"
