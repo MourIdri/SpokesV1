@@ -19,42 +19,41 @@ output "current_object_id" {
 #  location                 = "${var.preferred-location-main}"
 #}
 
-module "rgst" {
+#resource "azurerm_storage_account" "mots2" {
+#  name                     = "${var.current-name-convention-core-public-main}mots2"
+#  resource_group_name      = azurerm_resource_group.resource_group_spoke_storage.name
+#  location                 = azurerm_resource_group.resource_group_spoke_storage.location
+#  account_tier             = "Standard"
+#  account_replication_type = "LRS"
+#}
+
+module "rgsa" {
   source               = "./modules/rg"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
   preferred-location-module = "${var.preferred-location-main}"
 }
 
-
 resource "azurerm_storage_account" "mots2" {
   name                     = "${var.current-name-convention-core-public-main}mots2"
-  resource_group_name      = azurerm_resource_group.resource_group_spoke_storage.name
-  location                 = azurerm_resource_group.resource_group_spoke_storage.location
+  resource_group_name      = "${module.rgsa.resource_group_name_spoke-name}"
+  location                 = "${var.preferred-location-main}"
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
-resource "azurerm_storage_account" "mots3" {
-  name                     = "${var.current-name-convention-core-public-main}mots3"
-  resource_group_name      = azurerm_resource_group.resource_group_spoke_storage.name
-  location                 = azurerm_resource_group.resource_group_spoke_storage.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
 
 #CI Validated so far 
-module "logging" {
-  source               = "./modules/logging"
-  current-vm-default-pass-module = "${var.current-vm-default-pass-main}"
-  current-vm-default-username-module = "${var.current-vm-default-username-main}"
-  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
-  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
-  preferred-location-module = "${var.preferred-location-main}"
-  current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
-  current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
-  stoc_depend_on_module = [module.rgst]
-  logacc_depend_on_module = [module.rgst]
-}
+#module "logging" {
+#  source               = "./modules/logging"
+#  current-vm-default-pass-module = "${var.current-vm-default-pass-main}"
+#  current-vm-default-username-module = "${var.current-vm-default-username-main}"
+#  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+#  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+#  preferred-location-module = "${var.preferred-location-main}"
+#  current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
+#  current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
+#  stoc_depend_on_module = [azurerm_resource_group.resource_group_spoke ]
+#  logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
+#}
 
 
 
