@@ -99,19 +99,6 @@ resource "azurerm_log_analytics_workspace" "hub-corpc-log-ana-rep" {
 
 #Create a security view with log anaitics
 
-resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-SQLDataClassification" {
-  solution_name         = "SQLDataClassification"
-  location              = "${var.preferred-location-module}"
-  resource_group_name   = "${var.current-name-convention-core-module}-rg"
-  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
-  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
-  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
-  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
-  plan {
-    publisher = "Microsoft"
-    product   = "OMSGallery/SQLDataClassification"
-  }
-}
 resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-sol-LogicAppsManagement" {
   solution_name         = "LogicAppsManagement"
   location              = "${var.preferred-location-module}"
