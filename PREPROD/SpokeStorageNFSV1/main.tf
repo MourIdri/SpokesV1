@@ -19,7 +19,7 @@ output "current_object_id" {
 #  location                 = "${var.preferred-location-main}"
 #}
 
-module "rg-st" {
+module "rgst" {
   source               = "./modules/rg"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
   preferred-location-module = "${var.preferred-location-main}"
