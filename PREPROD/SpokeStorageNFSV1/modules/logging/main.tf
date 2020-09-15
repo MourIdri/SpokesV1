@@ -111,6 +111,71 @@ resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecu" {
     product   = "OMSGallery/Security"
   }
 }    
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solsecufree" {
+  solution_name         = "SecurityCenterFree"
+  location              = "${var.preferred-location-module}"
+  resource_group_name   = "${var.current-name-convention-core-module}-rg"
+  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
+  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
+  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
+  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/SecurityCenterFree"
+  }
+}  
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solUpdates" {
+  solution_name         = "Updates"
+  location              = "${var.preferred-location-module}"
+  resource_group_name   = "${var.current-name-convention-core-module}-rg"
+  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
+  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
+  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
+  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/Updates"
+  }
+} 
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solServiceMap" {
+  solution_name         = "ServiceMap"
+  location              = "${var.preferred-location-module}"
+  resource_group_name   = "${var.current-name-convention-core-module}-rg"
+  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
+  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
+  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
+  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/ServiceMap"
+  }
+}
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solContainerInsights" {
+  solution_name         = "ContainerInsights"
+  location              = "${var.preferred-location-module}"
+  resource_group_name   = "${var.current-name-convention-core-module}-rg"
+  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
+  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
+  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
+  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/ContainerInsights"
+  }
+}
+resource "azurerm_log_analytics_solution" "hub-corpc-log-ana-solServiceMap" {
+  solution_name         = "ServiceMap"
+  location              = "${var.preferred-location-module}"
+  resource_group_name   = "${var.current-name-convention-core-module}-rg"
+  #workspace_resource_id = "hub-corpc-log-ana-rep-id"
+  workspace_resource_id = azurerm_log_analytics_workspace.hub-corpc-log-ana-rep.id
+  workspace_name        = "${var.current-name-convention-core-module}-lgws-rep"
+  depends_on = [azurerm_log_analytics_workspace.hub-corpc-log-ana-rep]
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/ServiceMap"
+  }
+}
 
 resource "azurerm_eventhub_namespace" "hub-corpc-ev-hb-nmsp" {
   depends_on = [var.stoc_depend_on_module]
