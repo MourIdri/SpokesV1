@@ -95,7 +95,16 @@ SETTINGS
 PROTECTED_SETTINGS
 }
 
+resource "azurerm_virtual_machine_extension" "DAAgentForLinux" {
+  name                       = "${var.current-name-convention-core-module}-mtl-ub16-DAAExtension"
+  virtual_machine_id         = "${azurerm_virtual_machine.mtl-ub16.id}"
+  publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
+  type                       = "DependencyAgentLinux"
+  type_handler_version       = "9.5"
+  auto_upgrade_minor_version = true
+  depends_on                 = [azurerm_virtual_machine_extension.mtl_oms_mma]
 
+}
 
 resource "azurerm_virtual_machine_extension" "mtl_diag_setting" {
 depends_on = [azurerm_virtual_machine_extension.mt1_custom_script]
