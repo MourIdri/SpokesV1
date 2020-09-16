@@ -111,11 +111,11 @@ resource "azurerm_virtual_machine_extension" "AzureMonitorLinuxAgent" {
   type                       = "AzureMonitorLinuxAgent"
   type_handler_version       = "1.5"
   auto_upgrade_minor_version = true
-  depends_on                 = [azurerm_virtual_machine_extension.mtl_oms_mma,azurerm_virtual_machine_extension.DAAgentForLinux]
+  depends_on                 = [azurerm_virtual_machine_extension.mtl_diag_setting]
 }
 
 resource "azurerm_virtual_machine_extension" "mtl_diag_setting" {
-depends_on = [azurerm_virtual_machine_extension.mt1_custom_script,azurerm_virtual_machine_extension.mtl_oms_mma,azurerm_virtual_machine_extension.DAAgentForLinux,azurerm_virtual_machine_extension.AzureMonitorLinuxAgent]
+depends_on = [azurerm_virtual_machine_extension.mtl_oms_mma]
  name                 = "${var.current-name-convention-core-module}-mtl-ub16-LinuxDiagnostics"
  virtual_machine_id = "${azurerm_virtual_machine.mtl-ub16.id}"
  publisher                     = "Microsoft.Azure.Diagnostics"
