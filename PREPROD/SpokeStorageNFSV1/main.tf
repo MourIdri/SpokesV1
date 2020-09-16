@@ -1,4 +1,5 @@
 data "azurerm_client_config" "current" {}
+
 output "current_client_id" {
   value = data.azurerm_client_config.current.client_id
 }
@@ -12,22 +13,40 @@ output "current_object_id" {
   value = data.azurerm_client_config.current.object_id
 }
 
-#module "rg" {
-#  source               = "./modules/rg"
-#  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
-#  preferred-location-module = "${var.preferred-location-main}"
+
+#resource "azurerm_resource_group" "resource_group_spoke_storage" {
+#  name                     = "${var.current-name-convention-core-main}-rg"
+#  location                 = "${var.preferred-location-main}"
 #}
 
-resource "azurerm_resource_group" "resource_group_spoke" {
-  name                     = "${var.current-name-convention-core-main}-rg"
-  location                 = "${var.preferred-location-main}"
+#resource "azurerm_storage_account" "mots2" {
+#  name                     = "${var.current-name-convention-core-public-main}mots2"
+#  resource_group_name      = azurerm_resource_group.resource_group_spoke_storage.name
+#  location                 = azurerm_resource_group.resource_group_spoke_storage.location
+#  account_tier             = "Standard"
+#  account_replication_type = "LRS"
+#}
+
+module "rgsa" {
+  source               = "./modules/rg"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"
 }
 
+resource "azurerm_storage_account" "mots2" {
+  name                     = "${var.current-name-convention-core-public-main}mots2"
+  resource_group_name      = "${module.rgsa.resource_group_name_spoke-name}"
+  location                 = "${var.preferred-location-main}"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
 
-data "azurerm_subnet" "subnet-spoke-storage" {
-  name                = "${var.current-name-convention-core-network-main}-subnet-${var.spoke-storage-root-name}"
-  virtual_network_name = "${var.current-name-convention-core-network-main}-vnet"
-  resource_group_name = "${var.current-name-convention-core-network-main}-rg"
+resource "azurerm_storage_account" "mots1" {
+  name                     = "${var.current-name-convention-core-public-main}mots1"
+  resource_group_name      = "${module.rgsa.resource_group_name_spoke-name}"
+  location                 = "${var.preferred-location-main}"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
 #CI Validated so far 
@@ -40,11 +59,21 @@ module "logging" {
   preferred-location-module = "${var.preferred-location-main}"
   current-az-sp-object-id-module = data.azurerm_client_config.current.object_id
   current-az-sp-tenant-id-module = data.azurerm_client_config.current.tenant_id
-  stoc_depend_on_module = [azurerm_resource_group.resource_group_spoke ]
-  logacc_depend_on_module = [azurerm_resource_group.resource_group_spoke]
+  stoc_depend_on_module = [module.rgsa ]
+  logacc_depend_on_module = [module.rgsa ]
 }
 
-#CI Validated so far 
+
+
+data "azurerm_subnet" "subnet-spoke-storage" {
+  name                = "${var.current-name-convention-core-network-main}-subnet-${var.spoke-storage-root-name}"
+  virtual_network_name = "${var.current-name-convention-core-network-main}-vnet"
+  resource_group_name = "${var.current-name-convention-core-network-main}-rg"
+  #logacc_depend_on_module = [module.rgsa]
+}
+
+#CI #Validated so far test
+#CI #Validated so far test
 module "vm-nfs-sto-1" {
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
   current-name-convention-core-module  = "${var.current-name-convention-core-main}"
@@ -60,5 +89,5 @@ module "vm-nfs-sto-1" {
   stor-log-repo-sas = "${module.logging.hub-corpc-sto-acc-log-sas-url-string}"
   stor-log-ws-crd-1 = "${module.logging.hub-corpc-log-ana-rep-primary-workspace-id}"
   stor-log-ws-crd-2 = "${module.logging.hub-corpc-log-ana-rep-primary-key}"  
-  mtl_depend_on = [azurerm_resource_group.resource_group_spoke, module.logging ]
+  mtl_depend_on = [module.rgsa, module.logging ]
 }
