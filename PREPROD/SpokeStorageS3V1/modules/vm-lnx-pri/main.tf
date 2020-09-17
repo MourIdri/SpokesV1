@@ -1,13 +1,14 @@
 # Create public IPs
-resource "azurerm_public_ip" "mtl-nic-private-dmz-in-puip" {
-    depends_on = [var.mtl_depend_on]
-    name                         = "${var.current-name-convention-core-module}-mtl1-ub16-nicinpuip"
-    location                     = "${var.preferred-location-module}" 
-    resource_group_name          = "${var.current-name-convention-core-module}-rg"
-    domain_name_label            = "${var.current-name-convention-core-public-module}mtl1"
-    allocation_method            = "Static"
-    tags = "${var.tags-mtl-lnx-module}"
-}
+#resource "azurerm_public_ip" "mtl-nic-private-dmz-in-puip" {
+#    depends_on = [var.mtl_depend_on]
+#    name                         = "${var.current-name-convention-core-module}-mtl1-ub16-nicinpuip"
+#    location                     = "${var.preferred-location-module}" 
+#    resource_group_name          = "${var.current-name-convention-core-module}-rg"
+#    domain_name_label            = "${var.current-name-convention-core-public-module}mtl1"
+#    allocation_method            = "Static"
+#    tags = "${var.tags-mtl-lnx-module}"
+#}
+
 resource "azurerm_network_interface" "mtl-nic-private-dmz-in" {
   depends_on = [var.mtl_depend_on]
   name                 = "${var.current-name-convention-core-module}-mtl-ub16-nicin"
@@ -20,7 +21,7 @@ resource "azurerm_network_interface" "mtl-nic-private-dmz-in" {
     subnet_id                     = "${var.subnet_in_id_module}" 
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.ip-in-mtl-module}" 
-    public_ip_address_id          = "${azurerm_public_ip.mtl-nic-private-dmz-in-puip.id}"
+    #public_ip_address_id          = "${azurerm_public_ip.mtl-nic-private-dmz-in-puip.id}"
   }
 }
 
@@ -94,10 +95,27 @@ SETTINGS
 PROTECTED_SETTINGS
 }
 
-
+resource "azurerm_virtual_machine_extension" "DAAgentForLinux" {
+  depends_on                 = [azurerm_virtual_machine_extension.mtl_oms_mma]
+  name                       = "${var.current-name-convention-core-module}-mtl-ub16-DAAExtension"
+  virtual_machine_id         = "${azurerm_virtual_machine.mtl-ub16.id}"
+  publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
+  type                       = "DependencyAgentLinux"
+  type_handler_version       = "9.5"
+  auto_upgrade_minor_version = true
+}
+resource "azurerm_virtual_machine_extension" "AzureMonitorLinuxAgent" {
+  depends_on                 = [azurerm_virtual_machine_extension.DAAgentForLinux]
+  name                       = "${var.current-name-convention-core-module}-mtl-ub16-AzureMonitorLinuxAgent"
+  virtual_machine_id         = "${azurerm_virtual_machine.mtl-ub16.id}"
+  publisher                  = "Microsoft.Azure.Monitor"
+  type                       = "AzureMonitorLinuxAgent"
+  type_handler_version       = "1.5"
+  auto_upgrade_minor_version = true
+}
 
 resource "azurerm_virtual_machine_extension" "mtl_diag_setting" {
-depends_on = [azurerm_virtual_machine_extension.mt1_custom_script]
+depends_on                 = [azurerm_virtual_machine_extension.AzureMonitorLinuxAgent]
  name                 = "${var.current-name-convention-core-module}-mtl-ub16-LinuxDiagnostics"
  virtual_machine_id = "${azurerm_virtual_machine.mtl-ub16.id}"
  publisher                     = "Microsoft.Azure.Diagnostics"
