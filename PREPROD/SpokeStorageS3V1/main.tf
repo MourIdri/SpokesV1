@@ -33,21 +33,6 @@ module "rgsa" {
   preferred-location-module = "${var.preferred-location-main}"
 }
 
-resource "azurerm_storage_account" "mots2" {
-  name                     = "${var.current-name-convention-core-public-main}mots2"
-  resource_group_name      = "${module.rgsa.resource_group_name_spoke-name}"
-  location                 = "${var.preferred-location-main}"
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-resource "azurerm_storage_account" "mots1" {
-  name                     = "${var.current-name-convention-core-public-main}mots1"
-  resource_group_name      = "${module.rgsa.resource_group_name_spoke-name}"
-  location                 = "${var.preferred-location-main}"
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
 
 #CI Validated so far 
 module "logging" {
