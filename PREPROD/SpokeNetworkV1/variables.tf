@@ -107,6 +107,10 @@ variable "spoke-aks-subnet-range-2" {
   description = "defining the vnetspace using a variable"
   type = any
 }
+variable "spoke-aks-2-root-name" {
+  description = "defining the vnetspace using a variable"
+  type = any
+}
 variable "spoke-aks-nsg-port-range-1" {
   description = "defining the vnetspace using a variable"
   type = any
@@ -115,6 +119,8 @@ variable "spoke-aks-nsg-port-range-2" {
   description = "defining the vnetspace using a variable"
   type = any
 }
+
+
 
 variable "nva-ip-out-to-spoke-main" {
   description = "defining the vnetspace using a variable"

@@ -24,6 +24,7 @@ spoke-storage-nsg-port-range = "__spoke-storage-nsg-port-range__"
 spoke-aks-root-name = "__spoke-aks-root-name__"
 spoke-aks-subnet-range-1 = "__spoke-aks-subnet-range-1__"
 spoke-aks-nsg-port-range-1 = "__spoke-aks-nsg-port-range-1__"
+spoke-aks-2-root-name = "__spoke-aks-2-root-name__"
 spoke-aks-subnet-range-2 = "__spoke-aks-subnet-range-2__"
 spoke-aks-nsg-port-range-2 = "__spoke-aks-nsg-port-range-2__"
 

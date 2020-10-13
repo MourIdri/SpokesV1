@@ -117,7 +117,7 @@ module "subnet-nsg-route-spoke-aks-1" {
   preferred-location-module = "${var.preferred-location-main}"  
   source               = "./modules/generic-subnet-nsg"
   #root-name-subnet-module = "privatedmzin"
-  root-name-subnet-module = "${var.spoke-aks-root-name}"  
+  root-name-subnet-module = "${var.spoke-aks-1-root-name}"  
   #iprange-subnet-module = "10.255.254.32/28"
   iprange-subnet-module = "${var.spoke-aks-subnet-range-1}" 
   #portrange-subnet-module =  ["21-4950"]
@@ -131,7 +131,7 @@ module "subnet-nsg-route-spoke-aks-2" {
   preferred-location-module = "${var.preferred-location-main}"  
   source               = "./modules/generic-subnet-nsg"
   #root-name-subnet-module = "privatedmzin"
-  root-name-subnet-module = "${var.spoke-aks-root-name}"  
+  root-name-subnet-module = "${var.spoke-aks-2-root-name}"  
   #iprange-subnet-module = "10.255.254.32/28"
   iprange-subnet-module = "${var.spoke-aks-subnet-range-2}" 
   #portrange-subnet-module =  ["21-4950"]
