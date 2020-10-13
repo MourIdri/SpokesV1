@@ -95,7 +95,7 @@ variable "spoke-storage-nsg-port-range" {
 }
 
 
-variable "spoke-aks-root-name" {
+variable "spoke-aks-1-root-name" {
   description = "defining the vnetspace using a variable"
   type = any
 }
