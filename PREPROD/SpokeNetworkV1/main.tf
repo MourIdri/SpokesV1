@@ -108,3 +108,34 @@ module "subnet-nsg-route-spoke-storage" {
   nva-ip-out-to-spoke-module = "${var.nva-ip-out-to-spoke-main}" 
   subnet_depend_on_module = [module.rg,module.network,module.peering]
 }
+
+
+# ROUTING & ADMIN PART :
+module "subnet-nsg-route-spoke-aks-1" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "privatedmzin"
+  root-name-subnet-module = "${var.spoke-aks-root-name}"  
+  #iprange-subnet-module = "10.255.254.32/28"
+  iprange-subnet-module = "${var.spoke-aks-subnet-range-1}" 
+  #portrange-subnet-module =  ["21-4950"]
+  portrange-subnet-module =  ["${var.spoke-aks-nsg-port-range-1}"]
+  nva-ip-out-to-spoke-module = "${var.nva-ip-out-to-spoke-main}" 
+  subnet_depend_on_module = [module.rg,module.network,module.peering]
+}
+module "subnet-nsg-route-spoke-aks-2" {
+  current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
+  current-name-convention-core-module  = "${var.current-name-convention-core-main}"
+  preferred-location-module = "${var.preferred-location-main}"  
+  source               = "./modules/generic-subnet-nsg"
+  #root-name-subnet-module = "privatedmzin"
+  root-name-subnet-module = "${var.spoke-aks-root-name}"  
+  #iprange-subnet-module = "10.255.254.32/28"
+  iprange-subnet-module = "${var.spoke-aks-subnet-range-2}" 
+  #portrange-subnet-module =  ["21-4950"]
+  portrange-subnet-module =  ["${var.spoke-aks-nsg-port-range-2}"]
+  nva-ip-out-to-spoke-module = "${var.nva-ip-out-to-spoke-main}" 
+  subnet_depend_on_module = [module.rg,module.network,module.peering]
+}
