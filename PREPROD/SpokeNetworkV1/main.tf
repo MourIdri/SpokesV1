@@ -123,7 +123,7 @@ module "subnet-nsg-route-spoke-aks-1" {
   #portrange-subnet-module =  ["21-4950"]
   portrange-subnet-module =  ["${var.spoke-aks-nsg-port-range-1}"]
   nva-ip-out-to-spoke-module = "${var.nva-ip-out-to-spoke-main}" 
-  subnet_depend_on_module = [module.rg,module.network,module.peering]
+  subnet_depend_on_module = [module.rg,module.network,module.peering,module.subnet-nsg-route-spoke-storage]
 }
 module "subnet-nsg-route-spoke-aks-2" {
   current-name-convention-core-public-module = "${var.current-name-convention-core-public-main}"
@@ -137,5 +137,5 @@ module "subnet-nsg-route-spoke-aks-2" {
   #portrange-subnet-module =  ["21-4950"]
   portrange-subnet-module =  ["${var.spoke-aks-nsg-port-range-2}"]
   nva-ip-out-to-spoke-module = "${var.nva-ip-out-to-spoke-main}" 
-  subnet_depend_on_module = [module.rg,module.network,module.peering]
+  subnet_depend_on_module = [module.rg,module.network,module.peering,module.subnet-nsg-route-spoke-aks-1]
 }
